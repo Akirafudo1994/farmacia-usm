@@ -1,224 +1,260 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Definición de todos los ramos con sus IDs únicos y requisitos
-    const ramosData = [
-        // Semestre 1
-        { id: 'OF1', name: 'ORIENTACIÓN FARMACÉUTICA I', credits: 2, semester: 1, requires: [] },
-        { id: 'FA2', name: 'FÍSICA APLICADA II', credits: 3, semester: 1, requires: [] }, // Nota: El nombre puede confundir con el de semestre 2, lo identificamos por semestre 1
-        { id: 'MA1', name: 'MATEMÁTICA APLICADA I', credits: 3, semester: 1, requires: [] },
-        { id: 'BIO1', name: 'BIOLOGÍA I', credits: 3, semester: 1, requires: [] },
-        { id: 'QB', name: 'QUÍMICA BÁSICA', credits: 6, semester: 1, requires: [] },
-        { id: 'BA1', name: 'BOTÁNICA APLICADA I', credits: 2, semester: 1, requires: [] },
+    const mallaCurricularDiv = document.getElementById('malla-curricular');
 
-        // Semestre 2
-        { id: 'OF2', name: 'ORIENTACIÓN FARMACÉUTICA II', credits: 2, semester: 2, requires: ['OF1'] },
-        { id: 'FA2_S2', name: 'FÍSICA APLICADA II', credits: 3, semester: 2, requires: ['FA2'] }, // Distinguido por _S2 para ser único
-        { id: 'MA2', name: 'MATEMÁTICA APLICADA II', credits: 3, semester: 2, requires: ['MA1'] },
-        { id: 'BIO2', name: 'BIOLOGÍA II', credits: 3, semester: 2, requires: ['BIO1'] },
-        { id: 'QB2', name: 'QUÍMICA BÁSICA II', credits: 6, semester: 2, requires: ['QB'] },
-        { id: 'BA2', name: 'BOTÁNICA APLICADA II', credits: 2, semester: 2, requires: ['BA1'] },
+    // Datos de las materias
+    const materiasData = {
+        'Semestre 1': [
+            { id: 'orientacion-farmaceutica-i', name: 'ORIENTACIÓN FARMACÉUTICA I', approved: false, unlocked: true, requires: [] },
+            { id: 'fisica-aplicada-ii-s1', name: 'FÍSICA APLICADA II', approved: false, unlocked: true, requires: [] }, // Nota: Nombre duplicado, distinguido por semestre
+            { id: 'matematica-aplicada-i', name: 'MATEMÁTICA APLICADA I', approved: false, unlocked: true, requires: [] },
+            { id: 'biologia-i', name: 'BIOLOGÍA I', approved: false, unlocked: true, requires: [] },
+            { id: 'quimica-basica', name: 'QUÍMICA BÁSICA', approved: false, unlocked: true, requires: [] },
+            { id: 'botanica-aplicada-i', name: 'BOTÁNICA APLICADA I', approved: false, unlocked: true, requires: [] },
+        ],
+        'Semestre 2': [
+            { id: 'orientacion-farmaceutica-ii', name: 'ORIENTACIÓN FARMACÉUTICA II', approved: false, unlocked: false, requires: ['orientacion-farmaceutica-i'] },
+            { id: 'fisica-aplicada-ii-s2', name: 'FÍSICA APLICADA II', approved: false, unlocked: false, requires: ['fisica-aplicada-ii-s1'] },
+            { id: 'matematica-aplicada-ii', name: 'MATEMÁTICA APLICADA II', approved: false, unlocked: false, requires: ['matematica-aplicada-i'] },
+            { id: 'biologia-ii', name: 'BIOLOGÍA II', approved: false, unlocked: false, requires: ['biologia-i'] },
+            { id: 'quimica-basica-ii', name: 'QUÍMICA BÁSICA II', approved: false, unlocked: false, requires: ['quimica-basica'] },
+            { id: 'botanica-aplicada-ii', name: 'BOTÁNICA APLICADA II', approved: false, unlocked: false, requires: ['botanica-aplicada-i'] },
+        ],
+        'Semestre 3': [
+            { id: 'estudio-comprension-hombre', name: 'Estudio y Comprensión del Hombre', approved: false, unlocked: true, requires: [] },
+            { id: 'quimica-inorganica-i', name: 'Química Inorgánica I', approved: false, unlocked: false, requires: ['quimica-basica-ii'] },
+            { id: 'quimica-organica-i', name: 'Química Orgánica I', approved: false, unlocked: false, requires: ['quimica-basica-ii'] },
+            { id: 'analisis-quimico-i', name: 'Análisis Químico I', approved: false, unlocked: false, requires: ['quimica-basica-ii'] },
+            { id: 'fisicoquimica-i', name: 'Fisicoquímica I', approved: false, unlocked: false, requires: ['fisica-aplicada-ii-s2'] },
+            { id: 'fisiologia-anatomia-i', name: 'FISIOLOGÍA y ANATOMÍA I', approved: false, unlocked: false, requires: ['biologia-ii'] },
+            { id: 'parasitologia', name: 'Parasitología', approved: false, unlocked: false, requires: ['biologia-ii'] },
+            { id: 'estadistica-i', name: 'Estadística I', approved: false, unlocked: false, requires: ['matematica-aplicada-ii'] },
+            { id: 'atencion-farmaceutica-i', name: 'Atención Farmacéutica I', approved: false, unlocked: false, requires: ['orientacion-farmaceutica-ii'] },
+        ],
+        'Semestre 4': [
+            { id: 'quimica-inorganica-ii', name: 'Química Inorgánica II', approved: false, unlocked: false, requires: ['quimica-inorganica-i'] },
+            { id: 'quimica-organica-ii', name: 'Química Orgánica II', approved: false, unlocked: false, requires: ['quimica-organica-i'] },
+            { id: 'analisis-quimico-ii', name: 'Análisis Químico II', approved: false, unlocked: false, requires: ['analisis-quimico-i'] },
+            { id: 'fisicoquimica-ii', name: 'Fisicoquímica II', approved: false, unlocked: false, requires: ['fisicoquimica-i'] },
+            { id: 'fisiologia-anatomia-ii', name: 'Fisiología y Anatomía II', approved: false, unlocked: false, requires: ['fisiologia-anatomia-i'] },
+            { id: 'estadistica-ii', name: 'Estadística II', approved: false, unlocked: false, requires: ['estadistica-i'] },
+            { id: 'metodologia-investigacion', name: 'Metodología de la Investigación', approved: false, unlocked: false, requires: ['estadistica-i'] },
+            { id: 'atencion-farmaceutica-ii', name: 'Atención Farmacéutica II', approved: false, unlocked: false, requires: ['atencion-farmaceutica-i'] },
+        ],
+        'Semestre 5': [
+            { id: 'quimica-medicinal-i', name: 'Química Medicinal I', approved: false, unlocked: false, requires: ['quimica-organica-ii'] },
+            { id: 'analisis-instrumental-i', name: 'Análisis Instrumental I', approved: false, unlocked: false, requires: ['analisis-quimico-ii'] },
+            { id: 'fisiopatologia-i', name: 'Fisiopatología I', approved: false, unlocked: false, requires: ['fisiologia-anatomia-ii'] },
+            { id: 'salud-publica-i', name: 'Salud Pública I', approved: false, unlocked: false, requires: ['parasitologia'] },
+            { id: 'bioquimica-i', name: 'Bioquímica I', approved: false, unlocked: false, requires: ['fisicoquimica-ii'] },
+            { id: 'farmacotecnia-i', name: 'Farmacotecnia I', approved: false, unlocked: false, requires: ['atencion-farmaceutica-ii'] },
+            { id: 'legislacion-farmaceutica-i', name: 'Legislación Farmacéutica I', approved: false, unlocked: true, requires: [] },
+            { id: 'diseno-proyectos-i', name: 'Diseño de Proyectos I', approved: false, unlocked: false, requires: ['estadistica-ii'] },
+        ],
+        'Semestre 6': [
+            { id: 'quimica-medicinal-ii', name: 'Química Medicinal II', approved: false, unlocked: false, requires: ['quimica-medicinal-i'] },
+            { id: 'analisis-instrumental-ii', name: 'Análisis Instrumental II', approved: false, unlocked: false, requires: ['analisis-instrumental-i'] },
+            { id: 'fisiopatologia-ii', name: 'Fisiopatología II', approved: false, unlocked: false, requires: ['fisiopatologia-i'] },
+            { id: 'salud-publica-ii', name: 'Salud Pública II', approved: false, unlocked: false, requires: ['salud-publica-i'] },
+            { id: 'bioquimica-ii', name: 'Bioquímica II', approved: false, unlocked: false, requires: ['bioquimica-i'] },
+            { id: 'farmacotecnia-ii', name: 'Farmacotecnia II', approved: false, unlocked: false, requires: ['farmacotecnia-i'] },
+            { id: 'legislacion-farmaceutica-ii', name: 'Legislación Farmacéutica II', approved: false, unlocked: false, requires: ['legislacion-farmaceutica-i'] },
+            { id: 'diseno-proyectos-ii', name: 'Diseño de Proyectos II', approved: false, unlocked: false, requires: ['diseno-proyectos-i'] },
+        ],
+        'Semestre 7': [
+            { id: 'microbiologia-i', name: 'Microbiología I', approved: false, unlocked: false, requires: ['salud-publica-ii'] },
+            { id: 'farmacologia-i', name: 'Farmacología I', approved: false, unlocked: false, requires: ['fisiopatologia-ii'] },
+            { id: 'toxicologia-i', name: 'Toxicología I', approved: false, unlocked: false, requires: ['bioquimica-ii'] },
+            { id: 'farmacognosis-i', name: 'Farmacognosis I', approved: false, unlocked: false, requires: ['quimica-medicinal-ii'] },
+            { id: 'biofarmacia-i', name: 'Biofarmacia I', approved: false, unlocked: false, requires: ['analisis-instrumental-ii'] },
+            { id: 'procesos-unitarios-i', name: 'Procesos Unitarios I', approved: false, unlocked: false, requires: ['analisis-instrumental-ii'] },
+            { id: 'higiene-seguridad-industrial-i', name: 'Higiene y Seguridad Industrial I', approved: false, unlocked: true, requires: [] },
+            { id: 'economia-aplicada', name: 'Economía Aplicada', approved: false, unlocked: true, requires: [] },
+            { id: 'orientacion-pasantias-oficina', name: 'Orientación Pasantías Oficina de Farmacia', approved: false, unlocked: false, requires: ['farmacotecnia-ii'] },
+        ],
+        'Semestre 8': [
+            { id: 'microbiologia-ii', name: 'Microbiología II', approved: false, unlocked: false, requires: ['microbiologia-i'] },
+            { id: 'farmacologia-ii', name: 'Farmacología II', approved: false, unlocked: false, requires: ['farmacologia-i'] },
+            { id: 'toxicologia-ii', name: 'Toxicología II', approved: false, unlocked: false, requires: ['toxicologia-i'] },
+            { id: 'farmacognosis-ii', name: 'Farmacognosis II', approved: false, unlocked: false, requires: ['farmacognosis-i'] },
+            { id: 'biofarmacia-ii', name: 'Biofarmacia II', approved: false, unlocked: false, requires: ['biofarmacia-i'] },
+            { id: 'procesos-unitarios-ii', name: 'Procesos Unitarios II', approved: false, unlocked: false, requires: ['procesos-unitarios-i'] },
+            { id: 'higiene-seguridad-industrial-ii', name: 'Higiene y Seguridad Industrial II', approved: false, unlocked: false, requires: ['higiene-seguridad-industrial-i'] },
+            { id: 'administracion-aplicada', name: 'Administración Aplicada', approved: false, unlocked: false, requires: ['economia-aplicada'] },
+            { id: 'pasantias-i-oficina', name: 'Pasantías I Oficina de Farmacia', approved: false, unlocked: false, requires: ['orientacion-pasantias-oficina'] },
+        ],
+        'Semestre 9': [
+            { id: 'primeros-auxilios-i', name: 'Primeros Auxilios I', approved: false, unlocked: false, requires: ['toxicologia-ii'] },
+            { id: 'farmacoterapeutica-i', name: 'Farmacoterapéutica I', approved: false, unlocked: false, requires: ['farmacologia-ii'] },
+            { id: 'bromatologia', name: 'Bromatología', approved: false, unlocked: false, requires: ['microbiologia-ii'] },
+            { id: 'farmacotecnia-iii', name: 'Farmacotecnia III', approved: false, unlocked: false, requires: ['procesos-unitarios-ii'] },
+            { id: 'dermocosmetica-i', name: 'Dermocosmética I', approved: false, unlocked: false, requires: ['farmacognosis-ii'] },
+            { id: 'mercadotecnia-i', name: 'Mercadotecnia I', approved: false, unlocked: true, requires: [] },
+            { id: 'tecnicas-gerenciales-i', name: 'Técnicas Gerenciales I', approved: false, unlocked: false, requires: ['administracion-aplicada'] },
+            { id: 'seminario-trabajo-grado-i', name: 'Seminario Trabajo Especial de Grado I', approved: false, unlocked: false, requires: ['diseno-proyectos-ii'] },
+            { id: 'orientacion-pasantias-industriales', name: 'Orientación Pasantías Industriales-Empresas', approved: false, unlocked: false, requires: ['pasantias-i-oficina'] },
+            { id: 'farmacia-hospitalaria-i', name: 'Farmacia Hospitalaria I', approved: false, unlocked: false, requires: ['farmacologia-ii'] },
+        ],
+        'Semestre 10': [
+            { id: 'primeros-auxilios-ii', name: 'Primeros Auxilios II', approved: false, unlocked: false, requires: ['primeros-auxilios-i'] },
+            { id: 'farmacoterapeutica-ii', name: 'Farmacoterapéutica II', approved: false, unlocked: false, requires: ['farmacoterapeutica-i'] },
+            { id: 'bromatologia-ii', name: 'Bromatología II', approved: false, unlocked: false, requires: ['bromatologia'] },
+            { id: 'farmacotecnia-iv', name: 'Farmacotecnia IV', approved: false, unlocked: false, requires: ['farmacotecnia-iii'] },
+            { id: 'dermocosmetica-ii', name: 'Dermocosmética II', approved: false, unlocked: false, requires: ['dermocosmetica-i'] },
+            { id: 'mercadotecnia-ii', name: 'Mercadotecnia II', approved: false, unlocked: false, requires: ['mercadotecnia-i'] },
+            { id: 'tecnicas-gerenciales-ii', name: 'Técnicas Gerenciales II', approved: false, unlocked: true, requires: [] },
+            { id: 'seminario-trabajo-grado-ii', name: 'Seminario Trabajo Especial de Grado II', approved: false, unlocked: false, requires: ['seminario-trabajo-grado-i'] },
+            { id: 'trabajo-especial-grado', name: 'Trabajo Especial de Grado', approved: false, unlocked: false, requires: ['seminario-trabajo-grado-ii'] },
+            { id: 'pasantias-ii-industriales', name: 'Pasantías II Industriales-Empresas', approved: false, unlocked: false, requires: ['orientacion-pasantias-industriales'] },
+            { id: 'farmacia-hospitalaria-ii', name: 'Farmacia Hospitalaria II', approved: false, unlocked: false, requires: ['farmacia-hospitalaria-i'] },
+        ],
+    };
 
-        // Semestre 3
-        { id: 'ECH', name: 'Estudio y Comprensión del Hombre', credits: 2, semester: 3, requires: [] },
-        { id: 'QI1', name: 'Química Inorgánica I', credits: 3, semester: 3, requires: ['QB2'] },
-        { id: 'QO1', name: 'Química Orgánica I', credits: 4, semester: 3, requires: ['QB2'] },
-        { id: 'AQ1', name: 'Análisis Químico I', credits: 5, semester: 3, requires: ['QB2'] },
-        { id: 'FQ1', name: 'Fisicoquímica I', credits: 3, semester: 3, requires: ['FA2_S2'] },
-        { id: 'FYAI1', name: 'FISIOLOGÍA y ANATOMÍA I', credits: 3, semester: 3, requires: ['BIO2'] },
-        { id: 'PARA', name: 'Parasitología', credits: 2, semester: 3, requires: ['BIO2'] },
-        { id: 'EST1', name: 'Estadística I', credits: 2, semester: 3, requires: ['MA2'] },
-        { id: 'AF1', name: 'Atención Farmacéutica I', credits: 2, semester: 3, requires: ['OF2'] },
+    // Función para renderizar la malla
+    function renderMalla() {
+        mallaCurricularDiv.innerHTML = ''; // Limpiar el contenido existente
 
-        // Semestre 4
-        { id: 'QI2', name: 'Química Inorgánica II', credits: 3, semester: 4, requires: ['QI1'] },
-        { id: 'QO2', name: 'Química Orgánica II', credits: 5, semester: 4, requires: ['QO1'] },
-        { id: 'AQ2', name: 'Análisis Químico II', credits: 6, semester: 4, requires: ['AQ1'] },
-        { id: 'FQ2', name: 'Fisicoquímica II', credits: 3, semester: 4, requires: ['FQ1'] },
-        { id: 'FYAI2', name: 'Fisiología y Anatomía II', credits: 3, semester: 4, requires: ['FYAI1'] },
-        { id: 'EST2', name: 'Estadística II', credits: 2, semester: 4, requires: ['EST1'] },
-        { id: 'MI', name: 'Metodología de la Investigación', credits: 2, semester: 4, requires: ['EST1'] },
-        { id: 'AF2', name: 'Atención Farmacéutica II', credits: 2, semester: 4, requires: ['AF1'] },
+        for (const semestreTitle in materiasData) {
+            const semestreDiv = document.createElement('div');
+            semestreDiv.classList.add('semestre');
 
-        // Semestre 5
-        { id: 'QM1', name: 'Química Medicinal I', credits: 3, semester: 5, requires: ['QO2'] },
-        { id: 'AI1', name: 'Análisis Instrumental I', credits: 3, semester: 5, requires: ['AQ2'] },
-        { id: 'FIP1', name: 'Fisiopatología I', credits: 3, semester: 5, requires: ['FYAI2'] },
-        { id: 'SP1', name: 'Salud Pública I', credits: 2, semester: 5, requires: ['PARA'] },
-        { id: 'BQ1', name: 'Bioquímica I', credits: 3, semester: 5, requires: ['FQ2'] },
-        { id: 'FT1', name: 'Farmacotecnia I', credits: 3, semester: 5, requires: ['AF2'] },
-        { id: 'LF1', name: 'Legislación Farmacéutica I', credits: 2, semester: 5, requires: [] },
-        { id: 'DP1', name: 'Diseño de Proyectos I', credits: 2, semester: 5, requires: ['EST2'] },
+            const h2 = document.createElement('h2');
+            h2.textContent = semestreTitle;
+            semestreDiv.appendChild(h2);
 
-        // Semestre 6
-        { id: 'QM2', name: 'Química Medicinal II', credits: 3, semester: 6, requires: ['QM1'] },
-        { id: 'AI2', name: 'Análisis Instrumental II', credits: 3, semester: 6, requires: ['AI1'] },
-        { id: 'FIP2', name: 'Fisiopatología II', credits: 3, semester: 6, requires: ['FIP1'] },
-        { id: 'SP2', name: 'Salud Pública II', credits: 2, semester: 6, requires: ['SP1'] },
-        { id: 'BQ2', name: 'Bioquímica II', credits: 3, semester: 6, requires: ['BQ1'] },
-        { id: 'FT2', name: 'Farmacotecnia II', credits: 3, semester: 6, requires: ['FT1'] },
-        { id: 'LF2', name: 'Legislación Farmacéutica II', credits: 2, semester: 6, requires: ['LF1'] },
-        { id: 'DP2', name: 'Diseño de Proyectos II', credits: 2, semester: 6, requires: ['DP1'] },
+            materiasData[semestreTitle].forEach(materia => {
+                const materiaDiv = document.createElement('div');
+                materiaDiv.classList.add('materia');
+                materiaDiv.setAttribute('data-id', materia.id);
 
-        // Semestre 7
-        { id: 'MCR1', name: 'Microbiología I', credits: 3, semester: 7, requires: ['SP2'] },
-        { id: 'FM1', name: 'Farmacología I', credits: 3, semester: 7, requires: ['FIP2'] },
-        { id: 'TOX1', name: 'Toxicología I', credits: 3, semester: 7, requires: ['BQ2'] },
-        { id: 'FG1', name: 'Farmacognosis I', credits: 3, semester: 7, requires: ['QM2'] },
-        { id: 'BF1', name: 'Biofarmacia I', credits: 3, semester: 7, requires: ['AI2'] },
-        { id: 'PU1', name: 'Procesos Unitarios I', credits: 3, semester: 7, requires: ['AI2'] },
-        { id: 'HSI1', name: 'Higiene y Seguridad Industrial I', credits: 2, semester: 7, requires: [] },
-        { id: 'EA', name: 'Economía Aplicada', credits: 2, semester: 7, requires: [] },
-        { id: 'OPOF', name: 'Orientación Pasantías Oficina de Farmacia', credits: 2, semester: 7, requires: ['FT2'] },
+                const materiaNameSpan = document.createElement('span');
+                materiaNameSpan.classList.add('materia-title');
+                materiaNameSpan.textContent = materia.name;
+                materiaDiv.appendChild(materiaNameSpan);
 
-        // Semestre 8
-        { id: 'MCR2', name: 'Microbiología II', credits: 3, semester: 8, requires: ['MCR1'] },
-        { id: 'FM2', name: 'Farmacología II', credits: 3, semester: 8, requires: ['FM1'] },
-        { id: 'TOX2', name: 'Toxicología II', credits: 3, semester: 8, requires: ['TOX1'] },
-        { id: 'FG2', name: 'Farmacognosis II', credits: 3, semester: 8, requires: ['FG1'] },
-        { id: 'BF2', name: 'Biofarmacia II', credits: 3, semester: 8, requires: ['BF1'] },
-        { id: 'PU2', name: 'Procesos Unitarios II', credits: 3, semester: 8, requires: ['PU1'] },
-        { id: 'HSI2', name: 'Higiene y Seguridad Industrial II', credits: 2, semester: 8, requires: ['HSI1'] },
-        { id: 'ADMA', name: 'Administración Aplicada', credits: 2, semester: 8, requires: ['EA'] },
-        { id: 'PPOF', name: 'Pasantías I Oficina de Farmacia', credits: 2, semester: 8, requires: ['OPOF'] },
+                // Asignar clases de estado
+                if (materia.approved) {
+                    materiaDiv.classList.add('approved');
+                } else if (!materia.unlocked) {
+                    materiaDiv.classList.add('locked');
+                }
 
-        // Semestre 9
-        { id: 'PA1', name: 'Primeros Auxilios I', credits: 3, semester: 9, requires: ['TOX2'] },
-        { id: 'FTT1', name: 'Farmacoterapéutica I', credits: 2, semester: 9, requires: ['FM2'] },
-        { id: 'BROM1', name: 'Bromatología', credits: 3, semester: 9, requires: ['MCR2'] },
-        { id: 'FT3', name: 'Farmacotecnia III', credits: 3, semester: 9, requires: ['PU2'] },
-        { id: 'DRM1', name: 'Dermocosmética I', credits: 3, semester: 9, requires: ['FG2'] },
-        { id: 'MK1', name: 'Mercadotecnia I', credits: 2, semester: 9, requires: [] },
-        { id: 'TG1', name: 'Técnicas Gerenciales I', credits: 2, semester: 9, requires: ['ADMA'] },
-        { id: 'STEG1', name: 'Seminario Trabajo Especial de Grado I', credits: 2, semester: 9, requires: ['DP2'] },
-        { id: 'OPIE', name: 'Orientación Pasantías Industriales-Empresas', credits: 2, semester: 9, requires: ['PPOF'] },
-        { id: 'FH1', name: 'Farmacia Hospitalaria I', credits: 2, semester: 9, requires: ['FM2'] },
+                materiaDiv.addEventListener('click', () => toggleMateria(materia.id));
+                semestreDiv.appendChild(materiaDiv);
+            });
+            mallaCurricularDiv.appendChild(semestreDiv);
+        }
+    }
 
-        // Semestre 10
-        { id: 'PA2', name: 'Primeros Auxilios II', credits: 3, semester: 10, requires: ['PA1'] },
-        { id: 'FTT2', name: 'Farmacoterapéutica II', credits: 2, semester: 10, requires: ['FTT1'] },
-        { id: 'BROM2', name: 'Bromatología II', credits: 3, semester: 10, requires: ['BROM1'] },
-        { id: 'FT4', name: 'Farmacotecnia IV', credits: 3, semester: 10, requires: ['FT3'] },
-        { id: 'DRM2', name: 'Dermocosmética II', credits: 3, semester: 10, requires: ['DRM1'] },
-        { id: 'MK2', name: 'Mercadotecnia II', credits: 2, semester: 10, requires: ['MK1'] },
-        { id: 'TG2', name: 'Técnicas Gerenciales II', credits: 2, semester: 10, requires: [] }, // No tiene requisito listado
-        { id: 'STEG2', name: 'Seminario Trabajo Especial de Grado II', credits: 2, semester: 10, requires: ['STEG1'] },
-        { id: 'TEG', name: 'Trabajo Especial de Grado', credits: 2, semester: 10, requires: ['STEG2'] },
-        { id: 'PPIE', name: 'Pasantías II Industriales-Empresas', credits: 2, semester: 10, requires: ['OPIE'] },
-        { id: 'FH2', name: 'Farmacia Hospitalaria II', credits: 2, semester: 10, requires: ['FH1'] }
-    ];
+    // Función para encontrar una materia por su ID
+    function findMateriaById(id) {
+        for (const semestre in materiasData) {
+            const materia = materiasData[semestre].find(m => m.id === id);
+            if (materia) return materia;
+        }
+        return null;
+    }
 
-    const mallaDiv = document.getElementById('malla-curricular');
-    let approvedRamos = new Set(); // Para almacenar los IDs de los ramos aprobados
+    // Función para verificar si una materia está desbloqueada
+    function checkUnlocks() {
+        let changed = false;
+        for (const semestre in materiasData) {
+            materiasData[semestre].forEach(materia => {
+                if (!materia.unlocked && !materia.approved) {
+                    const allRequirementsMet = materia.requires.every(reqId => {
+                        const requiredMateria = findMateriaById(reqId);
+                        return requiredMateria && requiredMateria.approved;
+                    });
+                    if (allRequirementsMet) {
+                        materia.unlocked = true;
+                        changed = true;
+                    }
+                }
+            });
+        }
+        return changed; // Retorna true si algo cambió para saber si necesitamos re-renderizar
+    }
+
+    // Función para manejar el clic en una materia
+    function toggleMateria(materiaId) {
+        const materia = findMateriaById(materiaId);
+        if (!materia) return;
+
+        if (materia.approved) {
+            // Si la materia ya está aprobada, la "desaprueba" y bloquea las dependientes
+            materia.approved = false;
+            // Recursivamente desaprobar y bloquear las materias que la requieren
+            revertApproval(materiaId);
+        } else if (materia.unlocked) {
+            // Si está desbloqueada y no aprobada, la aprueba
+            materia.approved = true;
+        } else {
+            // Si está bloqueada, no hace nada y opcionalmente puede mostrar un mensaje
+            alert(`Debes aprobar los requisitos para ${materia.name} antes de seleccionarla.`);
+            return;
+        }
+        // Después de cada cambio, re-verificar los desbloqueos y re-renderizar
+        checkUnlocks(); // Ejecutar una vez
+        while (checkUnlocks()) { /* Sigue ejecutando hasta que no haya más desbloqueos */ }
+        renderMalla(); // Re-renderizar la UI
+        saveState(); // Guardar el estado en localStorage
+    }
+
+    // Función para revertir la aprobación de materias y sus dependencias
+    function revertApproval(materiaId) {
+        for (const semestre in materiasData) {
+            materiasData[semestre].forEach(materia => {
+                if (materia.requires.includes(materiaId) && materia.approved) {
+                    materia.approved = false;
+                    revertApproval(materia.id); // Llamada recursiva
+                }
+                // Si la materia se desaprueba, también se vuelve a bloquear si sus requisitos no están met
+                if (materia.requires.includes(materiaId) && materia.unlocked) {
+                    const allRequirementsMet = materia.requires.every(reqId => {
+                        const requiredMateria = findMateriaById(reqId);
+                        return requiredMateria && requiredMateria.approved;
+                    });
+                    if (!allRequirementsMet) {
+                        materia.unlocked = false;
+                    }
+                }
+            });
+        }
+    }
+
 
     // Función para guardar el estado en localStorage
     function saveState() {
-        localStorage.setItem('approvedRamos', JSON.stringify(Array.from(approvedRamos)));
+        localStorage.setItem('mallaFarmaciaState', JSON.stringify(materiasData));
     }
 
     // Función para cargar el estado desde localStorage
     function loadState() {
-        const savedRamos = localStorage.getItem('approvedRamos');
-        if (savedRamos) {
-            approvedRamos = new Set(JSON.parse(savedRamos));
-        }
-    }
-
-    // Función para verificar si un ramo está desbloqueado
-    function isRamoUnlocked(ramoId) {
-        const ramo = ramosData.find(r => r.id === ramoId);
-        if (!ramo) return false; // Ramo no encontrado
-
-        // Un ramo está desbloqueado si todos sus requisitos han sido aprobados
-        return ramo.requires.every(reqId => approvedRamos.has(reqId));
-    }
-
-    // Función para renderizar la malla
-    function renderMalla() {
-        mallaDiv.innerHTML = ''; // Limpiar la malla antes de renderizar de nuevo
-
-        // Agrupar ramos por semestre
-        const semesters = {};
-        ramosData.forEach(ramo => {
-            if (!semesters[ramo.semester]) {
-                semesters[ramo.semester] = [];
-            }
-            semesters[ramo.semester].push(ramo);
-        });
-
-        // Crear elementos HTML para cada semestre y ramo
-        for (let i = 1; i <= 10; i++) { // Asumiendo 10 semestres
-            if (semesters[i]) {
-                const semestreDiv = document.createElement('div');
-                semestreDiv.classList.add('semestre');
-                semestreDiv.innerHTML = `<h2>Semestre ${i}</h2>`;
-
-                semesters[i].forEach(ramo => {
-                    const ramoDiv = document.createElement('div');
-                    ramoDiv.classList.add('ramo');
-                    ramoDiv.dataset.id = ramo.id;
-
-                    // Añadir clases para estado (aprobado, bloqueado, disponible)
-                    if (approvedRamos.has(ramo.id)) {
-                        ramoDiv.classList.add('approved');
-                    } else if (!isRamoUnlocked(ramo.id)) {
-                        ramoDiv.classList.add('locked');
-                    }
-                    // Si no es aprobado ni bloqueado, se asume que está disponible (sin clases adicionales, el CSS por defecto lo maneja)
-
-                    ramoDiv.innerHTML = `
-                        <div class="ramo-title">${ramo.name}</div>
-                        <div class="ramo-credits">${ramo.credits} créditos</div>
-                    `;
-
-                    // Añadir evento click si el ramo no está aprobado ni bloqueado
-                    if (!approvedRamos.has(ramo.id) && isRamoUnlocked(ramo.id)) {
-                        ramoDiv.addEventListener('click', () => {
-                            approvedRamos.add(ramo.id);
-                            saveState(); // Guardar el nuevo estado
-                            renderMalla(); // Re-renderizar para actualizar estados
-                        });
-                    }
-
-                    semestreDiv.appendChild(ramoDiv);
-                });
-                mallaDiv.appendChild(semestreDiv);
+        const savedState = localStorage.getItem('mallaFarmaciaState');
+        if (savedState) {
+            const loadedData = JSON.parse(savedState);
+            // Actualizar materiasData con los datos cargados
+            for (const semestre in loadedData) {
+                if (materiasData[semestre]) { // Asegurarse de que el semestre existe
+                    loadedData[semestre].forEach(loadedMateria => {
+                        const originalMateria = findMateriaById(loadedMateria.id);
+                        if (originalMateria) {
+                            originalMateria.approved = loadedMateria.approved;
+                            originalMateria.unlocked = loadedMateria.unlocked; // Cargar estado de unlocked
+                        }
+                    });
+                }
             }
         }
+        // Asegurarse de que el estado de unlocked se recalcula en caso de inconsistencias o primera carga
+        // Esto es importante si el usuario borra una materia en medio y queremos que las siguientes se bloqueen
+        let changedWhileLoading = false;
+        do {
+            changedWhileLoading = checkUnlocks(); // Recalcular desbloqueos basándose en el estado cargado
+        } while (changedWhileLoading);
     }
 
-    // Cargar el estado inicial y renderizar la malla
+
+    // Inicializar: Cargar el estado, recalcular desbloqueos y renderizar
     loadState();
     renderMalla();
-
-    // Opcional: Botón para reiniciar el progreso (para pruebas)
-    const resetButton = document.createElement('button');
-    resetButton.textContent = 'Reiniciar Progreso';
-    resetButton.style.cssText = `
-        margin-top: 30px;
-        padding: 10px 20px;
-        background-color: var(--dark-pink);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1em;
-        transition: background-color 0.2s ease, transform 0.1s ease;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    `;
-    resetButton.addEventListener('mouseover', () => {
-        resetButton.style.backgroundColor = '#a30063'; /* Un rosa más oscuro al pasar el ratón */
-        resetButton.style.transform = 'translateY(-2px)';
-    });
-    resetButton.addEventListener('mouseout', () => {
-        resetButton.style.backgroundColor = 'var(--dark-pink)';
-        resetButton.style.transform = 'translateY(0)';
-    });
-
-    resetButton.addEventListener('click', () => {
-        if (confirm('¿Estás seguro de que quieres reiniciar todo tu progreso?')) {
-            approvedRamos.clear();
-            saveState();
-            renderMalla();
-        }
-    });
-    document.querySelector('.container').appendChild(resetButton); // Añadir el botón al contenedor principal
 });
