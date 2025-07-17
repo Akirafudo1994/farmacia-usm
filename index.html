@@ -3,17 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malla Curricular de Farmacia USM</title>
+    <title>Malla Curricular - Farmacia USM</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Malla Curricular de Farmacia USM</h1>
-        <p>Haz clic en las materias para marcarlas como aprobadas y desbloquear sus requisitos.</p>
+        <h1>Malla Curricular de Farmacia - USM</h1>
+        <p>Haz clic en una asignatura para ver sus detalles y dependencias.</p>
     </header>
 
-    <main id="malla-curricular">
-        </main>
+    <div class="grid-container">
+        <div class="semester" id="semestre-1">
+            <h2>Semestre 1</h2>
+            <div class="course" id="orientacion-farmaceutica-i" data-credits="2">
+                <h3>ORIENTACIÓN FARMACÉUTICA I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="fisica-aplicada-ii-s1" data-credits="3">
+                <h3>FÍSICA APLICADA II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="matematica-aplicada-i" data-credits="3">
+                <h3>MATEMÁTICA APLICADA I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="biologia-i" data-credits="3">
+                <h3>BIOLOGÍA I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="quimica-basica" data-credits="6">
+                <h3>QUÍMICA BÁSICA</h3>
+                <p>Créditos: 6</p>
+            </div>
+            <div class="course" id="botanica-aplicada-i" data-credits="2">
+                <h3>BOTÁNICA APLICADA I</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-2">
+            <h2>Semestre 2</h2>
+            <div class="course" id="orientacion-farmaceutica-ii" data-credits="2" data-prerequisites="orientacion-farmaceutica-i">
+                <h3>ORIENTACIÓN FARMACÉUTICA II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="fisica-aplicada-ii-s2" data-credits="3" data-prerequisites="fisica-aplicada-ii-s1">
+                <h3>FÍSICA APLICADA II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="matematica-aplicada-ii" data-credits="3" data-prerequisites="matematica-aplicada-i">
+                <h3>MATEMÁTICA APLICADA II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="biologia-ii" data-credits="3" data-prerequisites="biologia-i">
+                <h3>BIOLOGÍA II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="quimica-basica-ii" data-credits="6" data-prerequisites="quimica-basica">
+                <h3>QUÍMICA BÁSICA II</h3>
+                <p>Créditos: 6</p>
+            </div>
+            <div class="course" id="botanica-aplicada-ii" data-credits="2" data-prerequisites="botanica-aplicada-i">
+                <h3>BOTÁNICA APLICADA II</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-3">
+            <h2>Semestre 3</h2>
+            <div class="course" id="estudio-y-comprension-hombre" data-credits="2">
+                <h3>Estudio y Comprensión del Hombre</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="quimica-inorganica-i" data-credits="3" data-prerequisites="quimica-basica-ii">
+                <h3>Química Inorgánica I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="quimica-organica-i" data-credits="4" data-prerequisites="quimica-basica-ii">
+                <h3>Química Orgánica I</h3>
+                <p>Créditos: 4</p>
+            </div>
+            <div class="course" id="analisis-quimico-i" data-credits="5" data-prerequisites="quimica-basica-ii">
+                <h3>Análisis Químico I</h3>
+                <p>Créditos: 5</p>
+            </div>
+            <div class="course" id="fisicoquimica-i" data-credits="3" data-prerequisites="fisica-aplicada-ii-s2">
+                <h3>Fisicoquímica I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="fisiologia-y-anatomia-i" data-credits="3" data-prerequisites="biologia-ii">
+                <h3>FISIOLOGÍA y ANATOMÍA I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="parasitologia" data-credits="2" data-prerequisites="biologia-ii">
+                <h3>Parasitología</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="estadistica-i" data-credits="2" data-prerequisites="matematica-aplicada-ii">
+                <h3>Estadística I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="atencion-farmaceutica-i" data-credits="2" data-prerequisites="orientacion-farmaceutica-ii">
+                <h3>Atención Farmacéutica I</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-4">
+            <h2>Semestre 4</h2>
+            <div class="course" id="quimica-inorganica-ii" data-credits="3" data-prerequisites="quimica-inorganica-i">
+                <h3>Química Inorgánica II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="quimica-organica-ii" data-credits="5" data-prerequisites="quimica-organica-i">
+                <h3>Química Orgánica II</h3>
+                <p>Créditos: 5</p>
+            </div>
+            <div class="course" id="analisis-quimico-ii" data-credits="6" data-prerequisites="analisis-quimico-i">
+                <h3>Análisis Químico II</h3>
+                <p>Créditos: 6</p>
+            </div>
+            <div class="course" id="fisicoquimica-ii" data-credits="3" data-prerequisites="fisicoquimica-i">
+                <h3>Fisicoquímica II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="fisiologia-y-anatomia-ii" data-credits="3" data-prerequisites="fisiologia-y-anatomia-i">
+                <h3>Fisiología y Anatomía II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="estadistica-ii" data-credits="2" data-prerequisites="estadistica-i">
+                <h3>Estadística II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="metodologia-investigacion" data-credits="2" data-prerequisites="estadistica-i">
+                <h3>Metodología de la Investigación</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="atencion-farmaceutica-ii" data-credits="2" data-prerequisites="atencion-farmaceutica-i">
+                <h3>Atención Farmacéutica II</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-5">
+            <h2>Semestre 5</h2>
+            <div class="course" id="quimica-medicinal-i" data-credits="3" data-prerequisites="quimica-organica-ii">
+                <h3>Química Medicinal I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="analisis-instrumental-i" data-credits="3" data-prerequisites="analisis-quimico-ii">
+                <h3>Análisis Instrumental I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="fisiopatologia-i" data-credits="3" data-prerequisites="fisiologia-y-anatomia-ii">
+                <h3>Fisiopatología I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="salud-publica-i" data-credits="2" data-prerequisites="parasitologia">
+                <h3>Salud Pública I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="bioquimica-i" data-credits="3" data-prerequisites="fisicoquimica-ii">
+                <h3>Bioquímica I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacotecnia-i" data-credits="3" data-prerequisites="atencion-farmaceutica-ii">
+                <h3>Farmacotecnia I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="legislacion-farmaceutica-i" data-credits="2">
+                <h3>Legislación Farmacéutica I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="diseno-proyectos-i" data-credits="2" data-prerequisites="estadistica-ii">
+                <h3>Diseño de Proyectos I</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-6">
+            <h2>Semestre 6</h2>
+            <div class="course" id="quimica-medicinal-ii" data-credits="3" data-prerequisites="quimica-medicinal-i">
+                <h3>Química Medicinal II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="analisis-instrumental-ii" data-credits="3" data-prerequisites="analisis-instrumental-i">
+                <h3>Análisis Instrumental II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="fisiopatologia-ii" data-credits="3" data-prerequisites="fisiopatologia-i">
+                <h3>Fisiopatología II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="salud-publica-ii" data-credits="2" data-prerequisites="salud-publica-i">
+                <h3>Salud Pública II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="bioquimica-ii" data-credits="3" data-prerequisites="bioquimica-i">
+                <h3>Bioquímica II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacotecnia-ii" data-credits="3" data-prerequisites="farmacotecnia-i">
+                <h3>Farmacotecnia II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="legislacion-farmaceutica-ii" data-credits="2" data-prerequisites="legislacion-farmaceutica-i">
+                <h3>Legislación Farmacéutica II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="diseno-proyectos-ii" data-credits="2" data-prerequisites="diseno-proyectos-i">
+                <h3>Diseño de Proyectos II</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-7">
+            <h2>Semestre 7</h2>
+            <div class="course" id="microbiologia-i" data-credits="3" data-prerequisites="salud-publica-ii">
+                <h3>Microbiología I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacologia-i" data-credits="3" data-prerequisites="fisiopatologia-ii">
+                <h3>Farmacología I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="toxicologia-i" data-credits="3" data-prerequisites="bioquimica-ii">
+                <h3>Toxicología I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacognosis-i" data-credits="3" data-prerequisites="quimica-medicinal-ii">
+                <h3>Farmacognosis I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="biofarmacia-i" data-credits="3" data-prerequisites="analisis-instrumental-ii">
+                <h3>Biofarmacia I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="procesos-unitarios-i" data-credits="3" data-prerequisites="analisis-instrumental-ii">
+                <h3>Procesos Unitarios I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="higiene-seguridad-industrial-i" data-credits="2">
+                <h3>Higiene y Seguridad Industrial I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="economia-aplicada" data-credits="2">
+                <h3>Economía Aplicada</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="orientacion-pasantias-oficina" data-credits="2" data-prerequisites="farmacotecnia-ii">
+                <h3>Orientación Pasantías Oficina de Farmacia</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-8">
+            <h2>Semestre 8</h2>
+            <div class="course" id="microbiologia-ii" data-credits="3" data-prerequisites="microbiologia-i">
+                <h3>Microbiología II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacologia-ii" data-credits="3" data-prerequisites="farmacologia-i">
+                <h3>Farmacología II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="toxicologia-ii" data-credits="3" data-prerequisites="toxicologia-i">
+                <h3>Toxicología II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacognosis-ii" data-credits="3" data-prerequisites="farmacognosis-i">
+                <h3>Farmacognosis II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="biofarmacia-ii" data-credits="3" data-prerequisites="biofarmacia-i">
+                <h3>Biofarmacia II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="procesos-unitarios-ii" data-credits="3" data-prerequisites="procesos-unitarios-i">
+                <h3>Procesos Unitarios II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="higiene-seguridad-industrial-ii" data-credits="2" data-prerequisites="higiene-seguridad-industrial-i">
+                <h3>Higiene y Seguridad Industrial II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="administracion-aplicada" data-credits="2" data-prerequisites="economia-aplicada">
+                <h3>Administración Aplicada</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="pasantias-i-oficina" data-credits="2" data-prerequisites="orientacion-pasantias-oficina">
+                <h3>Pasantías I Oficina de Farmacia</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-9">
+            <h2>Semestre 9</h2>
+            <div class="course" id="primeros-auxilios-i" data-credits="3" data-prerequisites="toxicologia-ii">
+                <h3>Primeros Auxilios I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacoterapeutica-i" data-credits="2" data-prerequisites="farmacologia-ii">
+                <h3>Farmacoterapéutica I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="bromatologia" data-credits="3" data-prerequisites="microbiologia-ii">
+                <h3>Bromatología</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacotecnia-iii" data-credits="3" data-prerequisites="procesos-unitarios-ii">
+                <h3>Farmacotecnia III</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="dermocosmetica-i" data-credits="3" data-prerequisites="farmacognosis-ii">
+                <h3>Dermocosmética I</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="mercadotecnia-i" data-credits="2">
+                <h3>Mercadotecnia I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="tecnicas-gerenciales-i" data-credits="2" data-prerequisites="administracion-aplicada">
+                <h3>Técnicas Gerenciales I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="seminario-tesis-i" data-credits="2" data-prerequisites="diseno-proyectos-ii">
+                <h3>Seminario Trabajo Especial de Grado I</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="orientacion-pasantias-industriales" data-credits="2" data-prerequisites="pasantias-i-oficina">
+                <h3>Orientación Pasantías Industriales-Empresas</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="farmacia-hospitalaria-i" data-credits="2" data-prerequisites="farmacologia-ii">
+                <h3>Farmacia Hospitalaria I</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+
+        <div class="semester" id="semestre-10">
+            <h2>Semestre 10</h2>
+            <div class="course" id="primeros-auxilios-ii" data-credits="3" data-prerequisites="primeros-auxilios-i">
+                <h3>Primeros Auxilios II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacoterapeutica-ii" data-credits="2" data-prerequisites="farmacoterapeutica-i">
+                <h3>Farmacoterapéutica II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="bromatologia-ii" data-credits="3" data-prerequisites="bromatologia">
+                <h3>Bromatología II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="farmacotecnia-iv" data-credits="3" data-prerequisites="farmacotecnia-iii">
+                <h3>Farmacotecnia IV</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="dermocosmetica-ii" data-credits="3" data-prerequisites="dermocosmetica-i">
+                <h3>Dermocosmética II</h3>
+                <p>Créditos: 3</p>
+            </div>
+            <div class="course" id="mercadotecnia-ii" data-credits="2" data-prerequisites="mercadotecnia-i">
+                <h3>Mercadotecnia II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="tecnicas-gerenciales-ii" data-credits="2">
+                <h3>Técnicas Gerenciales II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="seminario-tesis-ii" data-credits="2" data-prerequisites="seminario-tesis-i">
+                <h3>Seminario Trabajo Especial de Grado II</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="trabajo-especial-grado" data-credits="2" data-prerequisites="seminario-tesis-ii">
+                <h3>Trabajo Especial de Grado</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="pasantias-ii-industriales" data-credits="2" data-prerequisites="orientacion-pasantias-industriales">
+                <h3>Pasantías II Industriales-Empresas</h3>
+                <p>Créditos: 2</p>
+            </div>
+            <div class="course" id="farmacia-hospitalaria-ii" data-credits="2" data-prerequisites="farmacia-hospitalaria-i">
+                <h3>Farmacia Hospitalaria II</h3>
+                <p>Créditos: 2</p>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
