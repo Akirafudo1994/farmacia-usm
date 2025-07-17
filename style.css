@@ -1,199 +1,170 @@
+/* Variables de colores */
 :root {
-    --primary-pink: #FF69B4; /* Rosa chillón */
-    --light-pink: #FFC0CB; /* Rosa claro */
-    --dark-pink: #C71585; /* Rosa oscuro */
-    --text-color: #333;
-    --background-color: #ffe8f2; /* Fondo rosa muy claro */
-    --card-bg-color: #fff0f5; /* Fondo de tarjeta rosa pálido */
-    --border-color: #ff99cc; /* Borde rosa intermedio */
-    --approved-color: #a3e6b4; /* Verde suave para aprobado */
-    --approved-text-color: #2e8b57; /* Texto verde oscuro */
-    --locked-color: #d3d3d3; /* Gris claro para bloqueado */
-    --locked-text-color: #666;
-    --unapproved-color: var(--card-bg-color); /* Fondo sin aprobar */
-    --unapproved-text-color: var(--text-color);
+    --color-bg: #e0f2f7; /* Azul muy claro, casi blanco */
+    --color-header-bg: #2196f3; /* Azul primario */
+    --color-header-text: #ffffff;
+    --color-card-bg: #ffffff;
+    --color-card-border: #bbdefb; /* Azul claro */
+    --color-card-shadow: rgba(33, 150, 243, 0.2); /* Sombra azul */
+    --color-unlocked-text: #424242; /* Gris oscuro para texto normal */
+    --color-unlocked-hover-bg: #e3f2fd; /* Azul más claro al pasar el mouse */
+    --color-approved-bg: #81d4fa; /* Azul vibrante para aprobado */
+    --color-approved-text: #212121; /* Texto oscuro para aprobado */
+    --color-locked-bg: #cfd8dc; /* Gris azulado para bloqueado */
+    --color-locked-text: #757575; /* Gris para texto bloqueado */
+    --color-semester-title: #1976d2; /* Azul oscuro para títulos de semestre */
+    --color-link: #1565c0; /* Azul oscuro para enlaces */
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-bg);
     margin: 0;
-    padding: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    padding: 0;
+    color: var(--color-unlocked-text);
     line-height: 1.6;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
     min-height: 100vh;
-    box-sizing: border-box;
 }
 
-.container {
-    width: 100%;
-    max-width: 1400px; /* Ajusta según el ancho deseado */
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+header {
+    background-color: var(--color-header-bg);
+    color: var(--color-header-text);
+    padding: 2.5rem 1.5rem;
     text-align: center;
-    border: 2px solid var(--primary-pink);
+    box-shadow: 0 4px 8px var(--color-card-shadow);
+    margin-bottom: 2rem;
 }
 
-h1 {
-    color: var(--dark-pink);
-    margin-bottom: 10px;
-    font-size: 2.8em;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    letter-spacing: 1px;
 }
 
-.subtitle {
-    color: var(--primary-pink);
-    font-size: 1.1em;
-    margin-bottom: 30px;
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 0.5rem;
 }
 
 #malla-curricular {
-    display: flex;
-    flex-wrap: wrap; /* Permite que los semestres se envuelvan a la siguiente línea */
-    gap: 30px; /* Espacio entre semestres */
-    justify-content: center;
-    align-items: flex-start; /* Alinea los semestres en la parte superior */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Columnas responsivas */
+    gap: 2rem; /* Espacio entre semestres */
+    padding: 1.5rem;
+    max-width: 1400px; /* Ancho máximo de la malla */
+    margin: 0 auto 3rem auto; /* Centrar y añadir espacio abajo */
+    flex-grow: 1; /* Permite que la sección principal crezca */
 }
 
 .semestre {
-    flex: 1 1 280px; /* Base flexible para 3-4 semestres por fila en pantallas grandes */
-    min-width: 250px;
-    background-color: var(--light-pink);
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
     border-radius: 12px;
-    padding: 20px 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--primary-pink);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 6px 12px var(--color-card-shadow);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out;
 }
 
 .semestre:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px); /* Pequeño efecto al pasar el mouse */
 }
 
 .semestre h2 {
-    color: var(--dark-pink);
+    color: var(--color-semester-title);
+    font-size: 1.8rem;
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    border-bottom: 2px solid var(--primary-pink);
-    padding-bottom: 10px;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-card-border);
+    padding-bottom: 0.75rem;
+    text-align: center;
 }
 
-.ramo {
-    background-color: var(--unapproved-color);
-    border: 1px solid var(--border-color);
+.materia {
+    background-color: var(--color-unlocked-hover-bg); /* Por defecto, un azul muy claro */
+    border: 1px solid var(--color-card-border);
     border-radius: 8px;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    text-align: left;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.1s ease-in-out;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+    font-weight: 500;
+    color: var(--color-unlocked-text);
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-    min-height: 80px; /* Altura mínima para los ramos */
-    color: var(--unapproved-text-color);
 }
 
-.ramo:last-child {
+.materia:last-child {
     margin-bottom: 0;
 }
 
-.ramo:not(.approved):not(.locked):hover {
-    background-color: var(--primary-pink);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.materia:hover:not(.locked):not(.approved) {
+    background-color: var(--color-card-border); /* Un poco más oscuro al pasar el mouse */
+    transform: translateY(-2px);
 }
 
-.ramo.approved {
-    background-color: var(--approved-color);
-    border-color: var(--approved-text-color);
-    color: var(--approved-text-color);
-    cursor: default;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.materia.approved {
+    background-color: var(--color-approved-bg);
+    color: var(--color-approved-text);
+    border-color: darken(var(--color-approved-bg), 10%); /* Borde más oscuro */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: default; /* No permitir más clics */
+    position: relative; /* Para el icono de check */
 }
 
-.ramo.locked {
-    background-color: var(--locked-color);
-    border-color: #a0a0a0;
-    color: var(--locked-text-color);
+.materia.approved::after {
+    content: '✓'; /* Icono de check */
+    font-size: 1.5rem;
+    color: var(--color-header-text); /* Blanco para el check */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.8;
+}
+
+.materia.locked {
+    background-color: var(--color-locked-bg);
+    color: var(--color-locked-text);
     cursor: not-allowed;
     opacity: 0.7;
-    filter: grayscale(10%); /* Un sutil filtro para mimetizar bloqueo */
+    border-style: dashed; /* Borde punteado para bloqueado */
 }
 
-.ramo-title {
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-bottom: 5px;
+.materia-title {
+    flex-grow: 1; /* Permite que el título ocupe el espacio disponible */
 }
 
-.ramo-credits {
-    font-size: 0.9em;
-    color: inherit; /* Hereda el color del texto del ramo */
-}
+/* Responsividad */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
 
-/* Media Queries para responsividad */
-@media (max-width: 1200px) {
+    header p {
+        font-size: 1rem;
+    }
+
     #malla-curricular {
-        gap: 25px;
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+        padding: 1rem;
     }
-    .semestre {
-        flex: 1 1 280px; /* Dos semestres por fila en pantallas medianas */
-    }
-}
 
-@media (max-width: 900px) {
-    .container {
-        padding: 20px;
-    }
-    h1 {
-        font-size: 2.2em;
-    }
     .semestre {
-        flex: 1 1 300px; /* Un semestre por fila en pantallas pequeñas */
-        padding: 15px 10px;
+        padding: 1rem;
     }
-    #malla-curricular {
-        flex-direction: column; /* Apila los semestres verticalmente */
-        align-items: center; /* Centra los semestres apilados */
-    }
-}
 
-@media (max-width: 500px) {
-    body {
-        padding: 10px;
+    .semestre h2 {
+        font-size: 1.5rem;
     }
-    .container {
-        padding: 15px;
-        border-radius: 10px;
-    }
-    h1 {
-        font-size: 1.8em;
-    }
-    .subtitle {
-        font-size: 0.9em;
-    }
-    .semestre {
-        width: 95%; /* Ocupa casi todo el ancho disponible */
-        min-width: unset;
-    }
-    .ramo {
-        padding: 10px;
-        min-height: 70px;
-    }
-    .ramo-title {
-        font-size: 1em;
-    }
-    .ramo-credits {
-        font-size: 0.8em;
+
+    .materia {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
     }
 }
